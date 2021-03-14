@@ -1,22 +1,22 @@
 defmodule GenReportTest do
   use ExUnit.Case
 
-  describe "build/1" do
+  describe "build_from_many/1" do
     test "should generates the report" do
-      file_name = "gen_report_test.csv"
+      filenames = ["gen_report_test.csv", "gen_report_test.csv"]
 
-      response = GenReport.build(file_name)
+      response = GenReport.build_from_many(filenames)
 
       expected_response = %{
         "all_hours" => %{
-          "cleiton" => 1,
-          "daniele" => 12,
+          "cleiton" => 2,
+          "daniele" => 24,
           "danilo" => 0,
           "diego" => 0,
-          "giuliano" => 9,
-          "jakeliny" => 14,
-          "joseph" => 3,
-          "mayk" => 5,
+          "giuliano" => 18,
+          "jakeliny" => 28,
+          "joseph" => 6,
+          "mayk" => 10,
           "rafael" => 0,
           "vinicius" => 0
         },
@@ -28,7 +28,7 @@ defmodule GenReportTest do
             "fevereiro" => 0,
             "janeiro" => 0,
             "julho" => 0,
-            "junho" => 1,
+            "junho" => 2,
             "maio" => 0,
             "março" => 0,
             "novembro" => 0,
@@ -36,9 +36,9 @@ defmodule GenReportTest do
             "setembro" => 0
           },
           "daniele" => %{
-            "abril" => 7,
+            "abril" => 14,
             "agosto" => 0,
-            "dezembro" => 5,
+            "dezembro" => 10,
             "fevereiro" => 0,
             "janeiro" => 0,
             "julho" => 0,
@@ -81,7 +81,7 @@ defmodule GenReportTest do
             "abril" => 0,
             "agosto" => 0,
             "dezembro" => 0,
-            "fevereiro" => 9,
+            "fevereiro" => 18,
             "janeiro" => 0,
             "julho" => 0,
             "junho" => 0,
@@ -97,10 +97,10 @@ defmodule GenReportTest do
             "dezembro" => 0,
             "fevereiro" => 0,
             "janeiro" => 0,
-            "julho" => 8,
+            "julho" => 16,
             "junho" => 0,
             "maio" => 0,
-            "março" => 6,
+            "março" => 12,
             "novembro" => 0,
             "outubro" => 0,
             "setembro" => 0
@@ -114,7 +114,7 @@ defmodule GenReportTest do
             "julho" => 0,
             "junho" => 0,
             "maio" => 0,
-            "março" => 3,
+            "março" => 6,
             "novembro" => 0,
             "outubro" => 0,
             "setembro" => 0
@@ -122,7 +122,7 @@ defmodule GenReportTest do
           "mayk" => %{
             "abril" => 0,
             "agosto" => 0,
-            "dezembro" => 5,
+            "dezembro" => 10,
             "fevereiro" => 0,
             "janeiro" => 0,
             "julho" => 0,
@@ -163,14 +163,14 @@ defmodule GenReportTest do
           }
         },
         "hours_per_year" => %{
-          "cleiton" => %{2016 => 0, 2017 => 0, 2018 => 0, 2019 => 0, 2020 => 1},
-          "daniele" => %{2016 => 5, 2017 => 0, 2018 => 7, 2019 => 0, 2020 => 0},
+          "cleiton" => %{2016 => 0, 2017 => 0, 2018 => 0, 2019 => 0, 2020 => 2},
+          "daniele" => %{2016 => 10, 2017 => 0, 2018 => 14, 2019 => 0, 2020 => 0},
           "danilo" => %{2016 => 0, 2017 => 0, 2018 => 0, 2019 => 0, 2020 => 0},
           "diego" => %{2016 => 0, 2017 => 0, 2018 => 0, 2019 => 0, 2020 => 0},
-          "giuliano" => %{2016 => 0, 2017 => 3, 2018 => 0, 2019 => 6, 2020 => 0},
-          "jakeliny" => %{2016 => 0, 2017 => 8, 2018 => 0, 2019 => 6, 2020 => 0},
-          "joseph" => %{2016 => 0, 2017 => 3, 2018 => 0, 2019 => 0, 2020 => 0},
-          "mayk" => %{2016 => 0, 2017 => 1, 2018 => 0, 2019 => 4, 2020 => 0},
+          "giuliano" => %{2016 => 0, 2017 => 6, 2018 => 0, 2019 => 12, 2020 => 0},
+          "jakeliny" => %{2016 => 0, 2017 => 16, 2018 => 0, 2019 => 12, 2020 => 0},
+          "joseph" => %{2016 => 0, 2017 => 6, 2018 => 0, 2019 => 0, 2020 => 0},
+          "mayk" => %{2016 => 0, 2017 => 2, 2018 => 0, 2019 => 8, 2020 => 0},
           "rafael" => %{2016 => 0, 2017 => 0, 2018 => 0, 2019 => 0, 2020 => 0},
           "vinicius" => %{2016 => 0, 2017 => 0, 2018 => 0, 2019 => 0, 2020 => 0}
         }
