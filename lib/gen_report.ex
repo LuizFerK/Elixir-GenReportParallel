@@ -37,12 +37,19 @@ defmodule GenReport do
     end)
   end
 
+  def build_from_many(filenames) when not is_list(filenames) do
+    {:error, "Please provide a list of filenames"}
+  end
+
   def build_from_many(filenames) do
-    filenames
-    |> Task.async_stream(&build/1)
-    |> Enum.reduce(hours_acc(), fn {:ok, report}, acc ->
-      sum_reports(report, acc)
-    end)
+    result =
+      filenames
+      |> Task.async_stream(&build/1)
+      |> Enum.reduce(hours_acc(), fn {:ok, report}, acc ->
+        sum_reports(report, acc)
+      end)
+
+    {:ok, result}
   end
 
   defp get_hours([name, hours, _day, month, year], %{
@@ -51,30 +58,22 @@ defmodule GenReport do
          "hours_per_year" => hours_per_year
        }) do
     all_hours = Map.put(all_hours, name, all_hours[name] + hours)
-
-    hours_per_month =
-      Map.put(
-        hours_per_month,
-        name,
-        Map.put(
-          hours_per_month[name],
-          month,
-          hours_per_month[name][month] + hours
-        )
-      )
-
-    hours_per_year =
-      Map.put(
-        hours_per_year,
-        name,
-        Map.put(hours_per_year[name], year, hours_per_year[name][year] + hours)
-      )
+    hours_per_month = sum_values(hours_per_month, name, month, hours)
+    hours_per_year = sum_values(hours_per_year, name, year, hours)
 
     %{
       "all_hours" => all_hours,
       "hours_per_month" => hours_per_month,
       "hours_per_year" => hours_per_year
     }
+  end
+
+  defp sum_values(map, name, date, hours) do
+    Map.put(
+      map,
+      name,
+      Map.put(map[name], date, map[name][date] + hours)
+    )
   end
 
   defp sum_reports(
